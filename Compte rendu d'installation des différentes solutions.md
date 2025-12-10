@@ -95,18 +95,23 @@ Pour ce jour, nous avons installé la seconde solution choisie : **HyperV**.
 2.  **Partitionnement :** Les disques étaient partitionnés de manière assez étrange, ce qui bloquait l’installation complète de Windows Server (erreur arrivant à la fin de plusieurs dizaines de minutes d’installation).
 3.  **Incompatibilité d'ISO :** L’ISO que nous avions n’était pas compatible, générant une nouvelle erreur.
 
-> **Résolution :** Après avoir réglé le souci de partitionnement et **changé d’ISO**, nous sommes enfin arrivés à installer notre Windows Server.
+![Page de connexion iDRAC du Serveur 7](images/6.png)
+![Page de connexion iDRAC du Serveur 7](images/7.png)
 
 ### 2.  Configuration Hyper-V et Réseau
 
 Une fois l'installation de l'OS finalisée, nous avons fait la configuration de base de Windows Server niveau réseau. Nous sommes ensuite passés à l'étape importante qu’est l’installation d'HyperV.
+
+![Page de connexion iDRAC du Serveur 7](images/8.png)
 
 Au redémarrage, nous nous sommes concentrés sur la configuration réseau, donc à la création des **vSwitch** :
 * Un en interne (NAT)
 * Un en externe (Bridge)
 
 #### Problème d'Adressage IP
-J’ai eu un souci niveau adressage IP : Quand je passais sur le vSwitch externe, mes VMs avaient directement un adressage **APIPA**. En changeant l’IP, les routes, etc., rien ne marchait et je ne pouvais même pas ping la passerelle. Pour y remédier, je suis passé par un vSwitch (plus simple/différent).
+J’ai eu un souci niveau adressage IP : Quand je passais sur le vSwitch externe, mes VMs avaient directement un adressage **APIPA**. En changeant l’IP, les routes, etc., rien ne marchait et je ne pouvais même pas ping la passerelle. Pour y remédier, je suis passé par un vSwitch interne
+
+![Page de connexion iDRAC du Serveur 7](images/9.png)
 
 Enfin, nous avons vérifié que le service de l'hyperviseur était bien **actif et prêt** à héberger des VMs.
 
