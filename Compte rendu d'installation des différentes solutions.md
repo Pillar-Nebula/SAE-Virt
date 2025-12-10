@@ -10,6 +10,8 @@ Ce document détaille l'avancement des travaux d'installation des hyperviseurs P
 
 Avant toutes choses, nous avons, avec l’aide d’autres groupes, réorganisé les différentes baies, pour avoir un **câblage propre**, et pour permettre à ce que chaque groupe puisse savoir où il est branché.
 
+images/image.png
+
 Avec un câblage plus propre, chaque groupe a pu connecter les cartes IDRAC de leurs serveurs pour travailler via les postes de la salle.
 
 ### 2.  Configuration d’iDRAC (Commun)
