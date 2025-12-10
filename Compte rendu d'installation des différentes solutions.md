@@ -33,7 +33,7 @@ Quant aux solutions de virtualisation, nous avons décidé de choisir **HyperV**
 
 Nous nous sommes connectés, depuis un poste du réseau, à la page WEB iDRAC correspondant à notre serveur.
 
-> On voit sur cette image (si elle était insérée) que nous sommes bien sur la page web iDRAC `10.202.6.217`, ce qui correspond à notre serveur 7 (Proxmox).
+![Page de connexion iDRAC du Serveur 7](images/1.png)
 
 ### 3.  Installation de l'Hyperviseur Proxmox (Romain)
 
@@ -45,11 +45,14 @@ Pour commencer, nous avons décidé d’installer Proxmox sur notre serveur 7.
 #### Choix du Stockage
 Lors de l'installation, nous avons sélectionné le système de fichiers **ZFS (RAID 0)**, comme convenu avec le professeur.
 
+![Page de connexion iDRAC du Serveur 7](images/2.png)
+
 #### Sécurité et Réseau
 * Nous avons choisi de **changer le mot de passe** pour quelque chose de plus approprié qui respecte certaines normes de sécurité, ainsi qu’une adresse mail à nous.
 * Nous avons configuré la partie réseau de notre Proxmox en choisissant une adresse dans la même plage que notre iDRAC (`10.202.6.1-10.202.6.255`).
 
-> **Statut :** Après l’installation, notre Proxmox est **opérationnel**. Le projet peut continuer avec l'installation de 3 Proxmox en CEPH dans cet hyperviseur.
+![Page de connexion iDRAC du Serveur 7](images/3.png)
+Après l’installation, notre Proxmox est **opérationnel**. Le projet peut continuer avec l'installation de 3 Proxmox en CEPH dans cet hyperviseur.
 
 ### 4.  Création des Machines Virtuelles (Commun)
 
