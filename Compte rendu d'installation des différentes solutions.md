@@ -1,4 +1,4 @@
-v# Compte Rendu d'Installation des Solutions de Virtualisation
+# Compte Rendu d'Installation des Solutions de Virtualisation
 
 Ce document détaille l'avancement des travaux d'installation des hyperviseurs Proxmox VE et Hyper-V sur les serveurs dédiés.
 
@@ -52,7 +52,9 @@ Lors de l'installation, nous avons sélectionné le système de fichiers **ZFS (
 * Nous avons configuré la partie réseau de notre Proxmox en choisissant une adresse dans la même plage que notre iDRAC (`10.202.6.1-10.202.6.255`).
 
 ![Page de connexion iDRAC du Serveur 7](images/3.png)
+
 Après l’installation, notre Proxmox est **opérationnel**. Le projet peut continuer avec l'installation de 3 Proxmox en CEPH dans cet hyperviseur.
+![Page de connexion iDRAC du Serveur 7](images/4.png)
 
 ### 4.  Création des Machines Virtuelles (Commun)
 
@@ -66,7 +68,10 @@ Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 | 101 | PVE2 | Proxmox VE | 2 | 8.3 | 32 |
 | 102 | PVE3 | Proxmox VE | 2 | 8.3 | 32 |
 
-> On voit que les 3 VMs sont **fonctionnelles** et en marche simultanément.
+On voit que les 3 VMs sont **fonctionnelles** et en marche simultanément.
+
+
+![Page de connexion iDRAC du Serveur 7](images/5.png)
 
 ---
 
@@ -104,3 +109,11 @@ Au redémarrage, nous nous sommes concentrés sur la configuration réseau, donc
 J’ai eu un souci niveau adressage IP : Quand je passais sur le vSwitch externe, mes VMs avaient directement un adressage **APIPA**. En changeant l’IP, les routes, etc., rien ne marchait et je ne pouvais même pas ping la passerelle. Pour y remédier, je suis passé par un vSwitch (plus simple/différent).
 
 Enfin, nous avons vérifié que le service de l'hyperviseur était bien **actif et prêt** à héberger des VMs.
+
+
+
+
+
+
+
+Ce compte rendu a été écris à la main et mis en markdown par Gemini
