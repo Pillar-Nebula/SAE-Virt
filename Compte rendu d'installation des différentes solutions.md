@@ -4,21 +4,21 @@ Ce document détaille l'avancement des travaux d'installation des hyperviseurs P
 
 ---
 
-##  Jour 1 : Préparation et Installation de Proxmox
+## Jour 1 : Préparation et Installation de Proxmox
 
-### 1.  Réorganisation de la Baie (Commun)
+### 1. Réorganisation de la Baie (Commun)
 
-Avant toutes choses, nous avons, avec l’aide d’autres groupes, réorganisé les différentes baies, pour avoir un **câblage propre**, et pour permettre à ce que chaque groupe puisse savoir où il est branché.
+Avant toute chose, nous avons, avec l’aide d’autres groupes, réorganisé les différentes baies, pour avoir un **câblage propre**, et pour permettre à ce que chaque groupe puisse savoir où il est branché.
 
 ![Page de connexion iDRAC du Serveur 7](images/image.png)
 
-Avec un câblage plus propre, chaque groupe a pu connecter les cartes IDRAC de leurs serveurs pour travailler via les postes de la salle.
+Avec un câblage plus propre, chaque groupe a pu connecter les cartes iDRAC de ses serveurs pour travailler via les postes de la salle.
 
-### 2.  Configuration d’iDRAC (Commun)
+### 2. Configuration d’iDRAC (Commun)
 
 Étant donné le nombre de groupes, il nous était impossible de tous travailler dans la salle serveur. Pour cela, nous avons configuré les cartes iDRAC de nos 2 serveurs.
 
-####  Adressage des iDRAC
+#### Adressage des iDRAC
 
 | Paramètre | iDRAC du switch 6 (Serveur Hyper-V) | iDRAC du switch 7 (Serveur Proxmox) |
 | :--- | :--- | :--- |
@@ -27,7 +27,7 @@ Avec un câblage plus propre, chaque groupe a pu connecter les cartes IDRAC de l
 | **Passerelle** | `10.202.255.254` | `10.202.255.254` |
 | **DNS** | `10.202.255.200` | `10.202.255.200` |
 
-Quant aux solutions de virtualisation, nous avons décidé de choisir **HyperV** sur le serveur 6, et **Proxmox** sur le serveur 7.
+Quant aux solutions de virtualisation, nous avons décidé de choisir **Hyper-V** sur le serveur 6, et **Proxmox** sur le serveur 7.
 
 #### Test de connexion
 
@@ -35,12 +35,12 @@ Nous nous sommes connectés, depuis un poste du réseau, à la page WEB iDRAC co
 
 ![Page de connexion iDRAC du Serveur 7](images/1.png)
 
-### 3.  Installation de l'Hyperviseur Proxmox (Romain)
+### 3. Installation de l'Hyperviseur Proxmox (Romain)
 
 Pour commencer, nous avons décidé d’installer Proxmox sur notre serveur 7.
 
-1.  Téléchargement d'un ISO assez récent et placement sur le stockage le plus petit.
-2.  Redémarrage du serveur et boot sur l'installeur Proxmox.
+1. Téléchargement d'un ISO assez récent et placement sur le stockage le plus petit.
+2. Redémarrage du serveur et boot sur l'installeur Proxmox.
 
 #### Choix du Stockage
 Lors de l'installation, nous avons sélectionné le système de fichiers **ZFS (RAID 0)**, comme convenu avec le professeur.
@@ -56,7 +56,7 @@ Lors de l'installation, nous avons sélectionné le système de fichiers **ZFS (
 Après l’installation, notre Proxmox est **opérationnel**. Le projet peut continuer avec l'installation de 3 Proxmox en CEPH dans cet hyperviseur.
 ![Page de connexion iDRAC du Serveur 7](images/4.png)
 
-### 4.  Création des Machines Virtuelles (Commun)
+### 4. Création des Machines Virtuelles (Commun)
 
 Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 
@@ -70,55 +70,48 @@ Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 
 On voit que les 3 VMs sont **fonctionnelles** et en marche simultanément.
 
-
 ![Page de connexion iDRAC du Serveur 7](images/5.png)
 
 ---
 
-##  Objectifs Seconde Journée (Suite du Projet)
+## Objectifs Seconde Journée (Suite du Projet)
 
-* Installation de la seconde solution (HyperV sur le serveur 6) (Romain)
-* Configuration d'HyperV pour qu’il soit 100% fonctionnel (Romain)
+* Installation de la seconde solution (Hyper-V sur le serveur 6) (Romain)
+* Configuration d'Hyper-V pour qu’il soit 100% fonctionnel (Romain)
 * Configuration du CEPH sur notre serveur 7 (Proxmox) (Alexandre)
 
 ---
 
-##  Jour 2 : Installation et Configuration de HyperV
+## Jour 2 : Installation et Configuration de Hyper-V
 
-### 1.  Installation de Windows Server et Hyper-V (Romain)
+### 1. Installation de Windows Server et Hyper-V (Romain)
 
-Pour ce jour, nous avons installé la seconde solution choisie : **HyperV**.
+Pour ce jour, nous avons **installé** la seconde solution choisie : **Hyper-V**.
 
 #### Défis Rencontrés (Problèmes de Stockage et d'ISO)
 
-1.  **Stockage :** Le serveur 6 avait des soucis de stockage, car il restait des OS et des configurations d’autres groupes, ce qui a nécessité un long travail de remise à blanc.
-2.  **Partitionnement :** Les disques étaient partitionnés de manière assez étrange, ce qui bloquait l’installation complète de Windows Server (erreur arrivant à la fin de plusieurs dizaines de minutes d’installation).
-3.  **Incompatibilité d'ISO :** L’ISO que nous avions n’était pas compatible, générant une nouvelle erreur.
+1. **Stockage :** Le serveur 6 avait des soucis de stockage, car il restait des OS et des configurations d’autres groupes, ce qui a nécessité un long travail de remise à blanc.
+2. **Partitionnement :** Les disques étaient partitionnés de manière assez étrange, ce qui bloquait l’installation complète de Windows Server (erreur arrivant à la fin de plusieurs dizaines de minutes d’installation).
+3. **Incompatibilité d'ISO :** L’ISO que nous avions n’était pas compatible, générant une nouvelle erreur.
 
 ![Page de connexion iDRAC du Serveur 7](images/6.png)
 ![Page de connexion iDRAC du Serveur 7](images/7.png)
 
-### 2.  Configuration Hyper-V et Réseau
+### 2. Configuration Hyper-V et Réseau
 
-Une fois l'installation de l'OS finalisée, nous avons fait la configuration de base de Windows Server niveau réseau. Nous sommes ensuite passés à l'étape importante qu’est l’installation d'HyperV.
+Une fois l'installation de l'OS finalisée, nous avons fait la configuration de base de Windows Server **au niveau** réseau. Nous sommes ensuite passés à l'étape importante qu’est l’installation d'Hyper-V.
 
 ![Page de connexion iDRAC du Serveur 7](images/8.png)
 
-Au redémarrage, nous nous sommes concentrés sur la configuration réseau, donc à la création des **vSwitch** :
+Après avoir **installé** Hyper-V, la première chose à faire était de se concentrer sur la configuration réseau, donc à la création des **vSwitch** :
 * Un en interne (NAT)
 * Un en externe (Bridge)
 
 #### Problème d'Adressage IP
-J’ai eu un souci niveau adressage IP : Quand je passais sur le vSwitch externe, mes VMs avaient directement un adressage **APIPA**. En changeant l’IP, les routes, etc., rien ne marchait et je ne pouvais même pas ping la passerelle. Pour y remédier, je suis passé par un vSwitch interne
+J’ai eu un souci **au niveau** adressage IP : Quand je passais sur le vSwitch externe, mes VMs avaient directement un adressage **APIPA**. En changeant l’IP, les routes, etc., rien ne marchait et je ne pouvais même pas ping la passerelle. Pour y remédier, je suis passé par un vSwitch interne pour toutes nos VMs.
 
 ![Page de connexion iDRAC du Serveur 7](images/9.png)
 
 Enfin, nous avons vérifié que le service de l'hyperviseur était bien **actif et prêt** à héberger des VMs.
 
-
-
-
-
-
-
-Ce compte rendu a été écris à la main et mis en markdown par Gemini
+Ce compte rendu a été écrit à la main et mis en markdown par Gemini
