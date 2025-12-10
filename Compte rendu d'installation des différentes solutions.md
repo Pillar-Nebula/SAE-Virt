@@ -1,22 +1,22 @@
-# ⚙️ Compte Rendu d'Installation des Solutions de Virtualisation
+# Compte Rendu d'Installation des Solutions de Virtualisation
 
 Ce document détaille l'avancement des travaux d'installation des hyperviseurs Proxmox VE et Hyper-V sur les serveurs dédiés.
 
 ---
 
-## 📅 Jour 1 : Préparation et Installation de Proxmox
+##  Jour 1 : Préparation et Installation de Proxmox
 
-### 1. 🔌 Réorganisation de la Baie (Commun)
+### 1.  Réorganisation de la Baie (Commun)
 
 Avant toutes choses, nous avons, avec l’aide d’autres groupes, réorganisé les différentes baies, pour avoir un **câblage propre**, et pour permettre à ce que chaque groupe puisse savoir où il est branché.
 
 Avec un câblage plus propre, chaque groupe a pu connecter les cartes IDRAC de leurs serveurs pour travailler via les postes de la salle.
 
-### 2. 🖥️ Configuration d’iDRAC (Commun)
+### 2.  Configuration d’iDRAC (Commun)
 
 Étant donné le nombre de groupes, il nous était impossible de tous travailler dans la salle serveur. Pour cela, nous avons configuré les cartes iDRAC de nos 2 serveurs.
 
-#### 📍 Adressage des iDRAC
+####  Adressage des iDRAC
 
 | Paramètre | iDRAC du switch 6 (Serveur Hyper-V) | iDRAC du switch 7 (Serveur Proxmox) |
 | :--- | :--- | :--- |
@@ -33,7 +33,7 @@ Nous nous sommes connectés, depuis un poste du réseau, à la page WEB iDRAC co
 
 > On voit sur cette image (si elle était insérée) que nous sommes bien sur la page web iDRAC `10.202.6.217`, ce qui correspond à notre serveur 7 (Proxmox).
 
-### 3. 🐧 Installation de l'Hyperviseur Proxmox (Romain)
+### 3.  Installation de l'Hyperviseur Proxmox (Romain)
 
 Pour commencer, nous avons décidé d’installer Proxmox sur notre serveur 7.
 
@@ -49,7 +49,7 @@ Lors de l'installation, nous avons sélectionné le système de fichiers **ZFS (
 
 > **Statut :** Après l’installation, notre Proxmox est **opérationnel**. Le projet peut continuer avec l'installation de 3 Proxmox en CEPH dans cet hyperviseur.
 
-### 4. ☁️ Création des Machines Virtuelles (Commun)
+### 4.  Création des Machines Virtuelles (Commun)
 
 Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 
@@ -65,7 +65,7 @@ Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 
 ---
 
-## 🎯 Objectifs Seconde Journée (Suite du Projet)
+##  Objectifs Seconde Journée (Suite du Projet)
 
 * Installation de la seconde solution (HyperV sur le serveur 6) (Romain)
 * Configuration d'HyperV pour qu’il soit 100% fonctionnel (Romain)
@@ -73,9 +73,9 @@ Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 
 ---
 
-## 📅 Jour 2 : Installation et Configuration de HyperV
+##  Jour 2 : Installation et Configuration de HyperV
 
-### 1. 🪟 Installation de Windows Server et Hyper-V (Romain)
+### 1.  Installation de Windows Server et Hyper-V (Romain)
 
 Pour ce jour, nous avons installé la seconde solution choisie : **HyperV**.
 
@@ -87,7 +87,7 @@ Pour ce jour, nous avons installé la seconde solution choisie : **HyperV**.
 
 > **Résolution :** Après avoir réglé le souci de partitionnement et **changé d’ISO**, nous sommes enfin arrivés à installer notre Windows Server.
 
-### 2. 🌐 Configuration Hyper-V et Réseau
+### 2.  Configuration Hyper-V et Réseau
 
 Une fois l'installation de l'OS finalisée, nous avons fait la configuration de base de Windows Server niveau réseau. Nous sommes ensuite passés à l'étape importante qu’est l’installation d'HyperV.
 
