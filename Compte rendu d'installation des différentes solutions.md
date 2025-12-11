@@ -56,17 +56,17 @@ Lors de l'installation, nous avons sélectionné le système de fichiers **ZFS (
 Après l’installation, notre Proxmox est **opérationnel**. Le projet peut continuer avec l'installation de 3 Proxmox en CEPH dans cet hyperviseur.
 ![Page de connexion iDRAC du Serveur 7](images/4.png)
 
-### 4. Création des Machines Virtuelles (Commun)
+### 4. Création des Machines Virtuelles (Alexandre)
 
 Nous avons créé les VMs nécessaires à la mise en place du cluster CEPH.
 
 #### Tableau des VMs créées :
 
-| ID VM | Nom | OS | CPU (Cores) | RAM (Go) | Disque (Go) |
-| :---: | :--- | :--- | :---: | :---: | :---: |
-| 100 | PVE1 | Proxmox VE | 2 | 8.3 | 32 |
-| 101 | PVE2 | Proxmox VE | 2 | 8.3 | 32 |
-| 102 | PVE3 | Proxmox VE | 2 | 8.3 | 32 |
+| ID VM | Nom | OS | CPU (Cores) | RAM (Go) | Disque (Go) | IP |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| 100 | PVE1 | Proxmox VE | 2 | 8.3 | 32 | 10.202.6.220/16 |
+| 101 | PVE2 | Proxmox VE | 2 | 8.3 | 32 | 10.202.6.221/16 |
+| 102 | PVE3 | Proxmox VE | 2 | 8.3 | 32 | 10.202.6.222/16 |
 
 On voit que les 3 VMs sont **fonctionnelles** et en marche simultanément.
 
