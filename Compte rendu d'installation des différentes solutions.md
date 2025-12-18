@@ -1,4 +1,122 @@
 
+# RAPPORT TECHNIQUE : Déploiement d'une solution de cluster a basculement sous HyperV (Romain)
+
+
+---
+
+## 1. Introduction et Architecture Globale
+
+Cette partie détaille la méthodologie de mise en œuvre d'une infrastructure de virtualisation à haute disponibilité (HA).
+
+Pour simuler un environnement avec plusieurs nœud avec notre matériel, nous avons déployé une architecture en **Virtualisation Imbriquée (Nested Virtualization)** :
+
+- **Niveau 0 (Physique) :** Serveur Dell exécutant Windows Server Datacenter.
+    
+- **Niveau 1 (Logique) :** Cluster de 3 machines virtuelles agissant comme nœuds.
+    
+- **Stockage :** Agrégation logicielle des disques via la technologie **Storage Spaces Direct (S2D)**.
+    
+
+---
+
+## 2. Préparation de l'Infrastructure Physique (Niveau 0)
+
+### 2.1 Matériel
+
+L'infrastructure repose sur un serveur Dell  (Switch 6). La première étape a consisté à faciliter l'administration via la carte de gestion à distance (iDRAC).
+
+- **Adressage iDRAC :** `10.202.6.216` /16
+    
+- **Passerelle :** `10.202.255.254`
+    
+
+L'accès iDRAC nous a permis de piloter l'alimentation, de monter les images ISO virtuellement et d'accéder à la console distante pour l'installation de l'OS.
+
+### 2.2 Stockage Physique
+
+Pour garantir le bon fonctionnement du futur S2D, il était important de présenter des disques vierges. Nous avons procédé à un nettoyage avant l'installation de l'OS, convertissant les disques au format GPT.
+
+---
+
+## 3. Configuration de l'Hyperviseur Hôte
+
+### 3.1 Système d'Exploitation et Licences
+
+Le choix s'est porté sur Windows Server édition Datacenter.
+
+Contrairement à l'édition Standard, la version Datacenter est un prérequis pour l'activation de la fonctionnalité S2D et permet une virtualisation illimitée.
+
+### 3.2 Activation du "MAC Address Spoofing"
+
+C'est un point de configuration assez important pour le Nested Clustering. Par défaut, un port de vSwitch Hyper-V n'accepte que les trames provenant de l'adresse MAC de la VM connectée.
+
+Or içi, les VMs imbriquées génèrent des trames avec leurs propres adresses MAC.
+
+Nous avons activé l'usurpation d'adresse MAC sur les cartes réseaux virtuelles des 3 nœuds pour autoriser le transit de ces paquets :
+
+PowerShell
+
+```
+Get-VMNetworkAdapter -VMName "Node*" | Set-VMNetworkAdapter -MacAddressSpoofing On
+```
+
+Sans cette commande, aucune communication réseau vers les VMs finales n'aurait été possible.
+
+---
+
+## 4. Implémentation du Cluster S2D (Cœur du système)
+
+
+### 4.1 Storage Spaces Direct (S2D)
+
+S2D permet de créer un stockage hautement disponible en utilisant des disques locaux attachés à chaque serveur, éliminant le besoin d'une baie SAN physique.
+
+#### 4.1.1 Activation
+
+Nous avons activé S2D (`Enable-ClusterS2D`) pour qu'il prenne le contrôle des disques, permettant à chaque nœud de lire et écrire sur les disques des voisins via le réseau.
+
+#### 4.1.2 Stratégie de Résilience : Miroir à 3 Voies
+
+Nous avons configuré le pool de stockage en **Miroir à 3 voies.
+
+- **Fonctionnement :** Chaque bloc de donnée est écrit simultanément sur 3 disques situés sur 3 nœuds différents.
+    
+- Cette méthode offre la résilience maximale. Elle permet de tolérer la panne simultanée de **2 nœuds** (ou 2 disques) tout en garantissant l'intégrité des données.
+- 
+#### 4.1.3 Système de Fichiers ReFS
+
+Les volumes partagés de cluster ont été formatés en ReFS (Resilient File System).
+
+Avantages :
+
+1. Détection et correction automatique de la corruption de données.
+    
+2. Optimisé pour la virtualisation et est donc plus performant.
+    
+
+#### 4.1.4 Gestion des vDisk
+
+Lors de la création du volume vDisk_S2D (30 Go pour acceuillir la VM), nous avons laissé 50 Go d'espace non alloué dans ce même pool.
+
+Cet espace de réserve permet au système de lancer une reconstruction automatique en cas de perte d'un disque.
+
+---
+
+## 6. Déploiement des Services et Validation
+
+
+### 6.1 Tests de Résilience et Résultats
+
+Une série de tests a validé le bon fonctionnement de la solution :
+
+| **Test Effectué**      | **Méthodologie Technique**                                                               | **Résultat**                                                                                       |
+| ---------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Live Migration**     | Déplacement d'une VM active entre Nœud 1 et Nœud 2 via `Move-ClusterVirtualMachineRole`. | **Succès :** 0 perte de ping. Continuité de service assurée.                                       |
+| **Failover (HA)**      | Simulation d'une panne matérielle du Nœud hébergeant le service Web.                     | **Succès :** Le cluster a détecté la perte de signal et a redémarré la VM sur un autre nœud        |
+| **Intégrité Stockage** | Simulation de déconnexion d'un disque physique du pool S2D.                              | **Succès :** Le volume est resté "Online" en mode dégradé. Les VMs n'ont subi aucune interruption. |
+
+
+
 ---
 
 # Compte Rendu d'Installation des Solutions de Virtualisation : Proxmox VE & Hyper-V
