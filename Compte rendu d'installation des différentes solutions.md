@@ -158,6 +158,13 @@ Utilisé pour le PRA du serveur de backup.
 - **Rôle :** Centralisation des sauvegardes dédupliquées.
 - **Datastore :** `backup-store` (sur ZFS).    
 
+### 4.4 Proxmox Datacenter Manager
+
+- **IP :** `10.202.6.255`
+    
+- **Rôle :** Supervision centralisée et interface de gestion globale du cluster.
+    
+- **Fonction :** Monitoring en temps réel de la charge et des nœuds.
 ---
 
 ## 5. Mécanismes de Résilience
