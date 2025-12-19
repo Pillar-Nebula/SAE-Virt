@@ -364,6 +364,10 @@ De mon côté, j'ai installé la solution Microsoft sur le serveur 6.
 3. **ISO :** Incompatibilité de la première ISO testée.
 
 ![Capture d'écran](images/Pasted%20image%2020251219200634.png)
+
+
+
+
 Une fois Windows Server installé, j'ai configuré les **vSwitchs**. Après une tentative en mode Externe (Bridge) causant des problèmes APIPA, j'ai basculé vers un vSwitch Interne (NAT) pour stabiliser le réseau.
 
 ### 2. Mise en place de la Haute Disponibilité sur Proxmox (Alexandre)
@@ -424,8 +428,21 @@ Voici le schéma de ma nouvelle construction;
 
 
 schéma physique
+
+
+
+
 ![Schéma physique](images/Pasted%20image%2020251219204922.png)
+
+
+
+
 schéma réseau;
+
+
+
+
+
 ![Schéma réseau](images/Pasted%20image%2020251219205033.png)
 
 ### 2. Préparation du Cluster S2D Hyper-V (Romain)
