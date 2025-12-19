@@ -119,11 +119,9 @@ Une série de tests a validé le bon fonctionnement de la solution :
 
 ---
 
-# Compte Rendu d'Installation des Solutions de Virtualisation : Proxmox VE & Hyper-V
+# Compte Rendu journalier d'innstallation des solutions de virtualisation : Proxmox VE & Hyper-V
 
-**Intervenants :** Alexandre (Proxmox) & Romain (Hyper-V)
-
-Ce document vient rendre compte de comment les travaux ont avancés de manière journalière.
+Cette partie vient rendre compte de comment les travaux ont avancés de manière journalière.
 
 ---
 
@@ -322,7 +320,7 @@ On voit donc que, après avoir shutdown le noeud, que le cluster détecte automa
 
 Après avoir attendu, on voit que la VM a redemmaré sur le noeud 1 (SRV1) : 
 
-![Page de connexion iDRAC du Serveur 7](images/image13.png)
+![Page de connexion iDRAC du Serveur 7](images/image16.png)
 
 On voit que le test est réussi et que notre cluster est fonctionnel !
 
