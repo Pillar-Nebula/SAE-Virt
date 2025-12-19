@@ -389,6 +389,18 @@ J'ai configuré les Vms Alpines, Alpine est une vm qui est extrêmement légère
 Une configuration rapide, pour une petite VM, est très suffisante pour le cadre de la SAE.
 La mise en place de la haute disponibilité était un succès, comme nous pouvons le remarquer sur ces deux captures d'écran,
 
+
+
+![[Pasted image 20251219230452.png]]
+
+
+La Vm  101 est donc répliquée dans le node 2 
+
+
+![[Pasted image 20251219230541.png]]
+
+
+
 Toutes les VMs proxmox en nested étaient bridgées de l'eno1 vers le VMBR0 comme le montre cette capture d'écran
 
 ![Capture d'écran](images/Pasted%20image%2020251219221054.png)
