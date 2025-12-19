@@ -24,7 +24,7 @@ L'installation de Proxmox est "clé en main" (Cluster + Ceph + Réseau opératio
 Proxmox inclut nativement le Stockage Distribué (Ceph) et le Backup (PBS). Hyper-V nécessite des rôles additionnels ou des logiciels tiers payants.
 ### Visualisation Stratégique
 
-![[images/Pasted image 20251219200028.png|300]]
+<img src="images/Pasted%20image%2020251219200028.png" width="300">
 Conclusion :
 Bien que Microsoft Hyper-V soit une solution robuste pour les entreprises déjà "Full Microsoft", Proxmox VE surpasse son concurrent sur les critères de coût, de simplicité et d'outillage de migration, répondant parfaitement à la problématique de remplacement de VMware.
 
@@ -302,8 +302,7 @@ Cette partie rend compte de l'avancement chronologique des travaux.
 
 Avant toute chose, nous avons, avec l’aide d’autres groupes (notamment celui de Valentin, de Pierre et de Soyfoudine), réorganisé les baies de la salle pour avoir un **câblage propre** et identifier clairement les branchements de chaque groupe.
 
-![[Pasted image 20251219200311.png]]
-
+![Capture d'écran](images/Pasted%20image%2020251219200311.png)
 _Incident :_ Durant cette phase, une erreur de câblage a provoqué une boucle réseau, générant une tempête de broadcast d'environ **650 Go** sur le VLAN. L'incident a été identifié et corrigé grâce à l'intervention de Maxine.
 
 Une fois le câblage fini, chaque groupe a pu connecter les cartes iDRAC de ses serveurs pour travailler à distance.
@@ -324,8 +323,7 @@ Après analyse du plan d'adressage global (10.202.0.0/16), nous avons attribué 
 
 Nous nous sommes connectés via l'interface WEB iDRAC.
 
-![[Pasted image 20251219200334.png]]
-
+![Capture d'écran](images/Pasted%20image%2020251219200334.png)
 ### 3. Installation de l'Hyperviseur Proxmox (Alexandre)
 
 Ici, je me suis occupé du 7eme serveur en partant du haut.
@@ -335,11 +333,11 @@ J'ai établi un premier cahier des charges : un hyperviseur principal (Bare Meta
 1. **Installation :** Boot sur l'ISO Proxmox.
 2. **Stockage :** Installation standard sur les disques disponibles (le RAID matériel n'était pas encore configuré à ce stade du projet).
 
-![[Pasted image 20251219200651.png]]
-![[Pasted image 20251219200820.png]]
+![Capture d'écran 1](images/Pasted%20image%2020251219200651.png)
+![Capture d'écran 2](images/Pasted%20image%2020251219200820.png)
 
 Une fois terminé, on peut se rentre  sur l'IP qu'on a addressé sur la configuration du proxmox pendant son installation;
-![[Pasted image 20251219200856.png]]
+![Capture d'écran](images/Pasted%20image%2020251219200856.png)
 Une fois Proxmox opérationnel, j'ai déployé 3 VMs qui serviront de nœuds pour notre futur cluster Ceph.
 
 
@@ -365,7 +363,7 @@ De mon côté, j'ai installé la solution Microsoft sur le serveur 6.
 2. **Partitionnement :** Les disques avaient un formatage bloquant l'installateur Windows.
 3. **ISO :** Incompatibilité de la première ISO testée.
 
-![[Pasted image 20251219200634.png]]
+![Capture d'écran](images/Pasted%20image%2020251219200634.png)
 Une fois Windows Server installé, j'ai configuré les **vSwitchs**. Après une tentative en mode Externe (Bridge) causant des problèmes APIPA, j'ai basculé vers un vSwitch Interne (NAT) pour stabiliser le réseau.
 
 ### 2. Mise en place de la Haute Disponibilité sur Proxmox (Alexandre)
@@ -427,9 +425,10 @@ Voici le schéma de ma nouvelle construction;
 
 
 schéma physique
-![[Pasted image 20251219204922.png]]
+![Schéma physique](images/Pasted%20image%2020251219204922.png)
 schéma réseau;
-![[Pasted image 20251219205033.png]]
+![Schéma réseau](images/Pasted%20image%2020251219205033.png)
+
 ### 2. Préparation du Cluster S2D Hyper-V (Romain)
 
 J'ai profité de cette demi-journée pour préparer le terrain pour le **Cluster S2D (Storage Spaces Direct)** : validation des prérequis réseaux, documentation des IPs et croquis du schéma réseau.
@@ -449,14 +448,14 @@ Pour travailler à distance pendant mon week-end, j'ai installé le logiciel **T
 - Test de résilience :
     
     Pour faire ce test, nous regardons d'abord sur quel nœud se trouve notre VM. 
-    ![[Pasted image 20251219205153.png]]
+![Test de résilience](images/Pasted%20image%2020251219205153.png)
 	Étant sur le nœud 2, nous l'éteignons pour voir comment réagit l'installation.
-	![[Pasted image 20251219205212.png]]
-	Résultat : Le cluster détecte automatiquement que le nœud est tombé. Après quelques secondes, la VM a redémarré sur le nœud 1 (SRV1).
-    ![[Pasted image 20251219205231.png]]
-- **Migration à chaud :** On active le "MAC Address Spoofing" pour permettre le déplacement des VMs sans coupure réseau, puis, pour réaliser ce test, rienn de plus simple. On prend notre VM, et on appuie sur move -> live migration -> best possible node. Avant cela, on lance notre VM avec un ping infini vers google. Puis, on lance la migration dynamique. On voit qu'un ping est à 12ms (au lieu de 6 ou 5 pour tout les autres) quand on clique sur la migration, mais ils reprennent de manière normale juste après, sans coupure :
-    ![[Pasted image 20251219205246.png]]
-    ![[Pasted image 20251219205312.png]]
+![Capture d'écran](images/Pasted%20image%2020251219205153.png)
+Résultat : Le cluster détecte automatiquement que le nœud est tombé. Après quelques secondes, la VM a redémarré sur le nœud 1 (SRV1).
+![Capture d'écran](images/Pasted%20image%2020251219205153.png)-
+**Migration à chaud :** On active le "MAC Address Spoofing" pour permettre le déplacement des VMs sans coupure réseau, puis, pour réaliser ce test, rienn de plus simple. On prend notre VM, et on appuie sur move -> live migration -> best possible node. Avant cela, on lance notre VM avec un ping infini vers google. Puis, on lance la migration dynamique. On voit qu'un ping est à 12ms (au lieu de 6 ou 5 pour tout les autres) quand on clique sur la migration, mais ils reprennent de manière normale juste après, sans coupure :
+![Capture d'écran](images/Pasted%20image%2020251219205153.png)
+![Capture d'écran](images/Pasted%20image%2020251219205153.png)
     
     Résultat : Un ping légèrement plus haut (12ms) pendant la bascule, mais aucune coupure réseau.
 ---
@@ -468,7 +467,7 @@ Pour travailler à distance pendant mon week-end, j'ai installé le logiciel **T
 Ayant validé la nouvelle architecture théorique, j'ai procédé à la réinstallation complète de l'environnement Proxmox avec un temps assez limité :
 
 1. **Configuration iDRAC :** Création du Virtual Disk en **RAID 1 (Miroir)** sur les SSD de 1.7 To pour la redondance physique.
-2. **![[Pasted image 20251219205447.png]]
+2. **![Capture d'écran](images/Pasted%20image%2020251219205447.png)
 
 3. **Déploiement :** Réinstallation de l'hôte et création des 3 nœuds virtuels, toujours les memes.
 4. **Stockage :** Configuration immédiate des pools Ceph et ZFS, et ZFS raid.
@@ -590,15 +589,14 @@ Cette machine simule un utilisateur du réseau.
 - **Particularité Stockage :** J'ai placé son disque sur le stockage **ZFS Local** (et non Ceph). Comme c'est une machine de test jetable, elle n'a pas besoin de Haute Disponibilité, mais elle bénéficie ainsi de meilleures performances disques (I/O) pour lancer des benchmarks si besoin.
 - **Outils installés :** `bind-tools` (pour avoir `nslookup` et `dig`) et `curl` (pour tester le web).
 
-![[Pasted image 20251219205818.png]]
+![Capture d'écran](images/Pasted%20image%2020251219205818.png)
 ### 2. Le Serveur de Sauvegarde (PBS)
 
 Installation de **Proxmox Backup Server** (VM 110) sur un stockage **ZFS Répliqué** (pour la sécurité).
 - **Ressources :** 4 Go RAM (pour la déduplication), 20 Go Disque.
 - **IP :** `10.202.6.255`
 - **Liaison :** Le Datacenter PVE a été connecté au PBS pour permettre les backups.
-![[Pasted image 20251219212942.png]]
-
+![Capture d'écran](images/Pasted%20image%2020251219212942.png)
 ### Romain :
 
 Ayant fini ma partie technique, j'ai pu me consacrer à 100% aux livrables, j'ai mis au propre et en markdown ce compte rendu. J'ai ensuite mis au propre mes idées par rapport aux bilans financiers sur Excel.
@@ -611,16 +609,14 @@ Ayant fini ma partie technique, j'ai pu me consacrer à 100% aux livrables, j'ai
 
 Pour assurer la veille technologique et la gestion globale, j'ai installé une solution de gestion centralisée (Datacenter Manager) sur une VM dédiée. Cela nous permet de visualiser la charge du cluster en temps réel via une interface unifiée.
 
-![[Pasted image 20251219213027.png]]
-
+![Capture d'écran](images/Pasted%20image%2020251219213027.png)
 ### 2. Validation Fonctionnelle (Alexandre)
 
 Nous avons clôturé la semaine par les tests de validation :
 
 - Test Service : Le client accède bien au site web www.sae.lan via le DNS interne.
     
-![[Pasted image 20251219205934.png]]
-
+![Capture d'écran](images/Pasted%20image%2020251219205934.png)
 La page de base du localhost d'un service Nginx correspond exactement a ce fichier HTML, c'est une réussite, cela veut dire que mon serveur nginx et mon service DNS sont tous les deux opérationnels
 
 
