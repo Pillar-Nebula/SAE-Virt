@@ -11,22 +11,24 @@ Notre analyse technique et financière désigne **Proxmox VE** comme la meilleur
 
 ### 4 Arguments Décisifs
 
-1.  Rentabilité Immédiate (TCO)
-Proxmox (Open Source) permet une économie de 40 000 € à l'achat pour 3 serveurs par rapport à Hyper-V (Licences Datacenter + Veeam). Il reste plus rentable jusqu'à 58 VMs.
+1.  Rentabilité Immédiate
+Proxmox permet une économie de 40 000 € à l'achat pour 3 serveurs par rapport à Hyper-V (Licences Datacenter + Veeam). Il reste plus rentable jusqu'à 58 VMs.
 
 2.  Migration Fluide (VMware)
-Point critique : Proxmox depuis quelques versions intègre un assistant d'import natif qui aspire les VMs VMware en quelques clics. À l'inverse, Hyper-V impose une conversion de format complexe et risquée.
+Proxmox, depuis quelques versions, intègre un assistant d'import qui aspire les VMs VMware en quelques clics. À l'inverse, Hyper-V impose une conversion de format peu arrangeant.
 
 3.  Rapidité de Mise en Œuvre
-L'installation de Proxmox est "clé en main" (Cluster + Ceph + Réseau opérationnels en 4h). Hyper-V (S2D) s'est avéré lourd, nécessitant une configuration complexe (AD, DNS, PowerShell).
+L'installation de Proxmox est "clé en main" (Cluster + Ceph + Réseau opérationnels en 4h). Hyper-V (S2D dans notre cas) est quand même plus compliqué, nécessitant une configuration assez complexe.
 
 4.  Solution "Tout-en-un"
-Proxmox inclut nativement le Stockage Distribué (Ceph) et le Backup (PBS). Hyper-V nécessite des rôles additionnels ou des logiciels tiers payants.
+Proxmox inclut nativement le Stockage Distribué (Ceph) et le Backup (PBS). Hyper-V nécessite des rôles en plus ou des logiciels tiers payants.
+
 ### Visualisation Stratégique
 
 <img src="images/Pasted%20image%2020251219200028.png" width="300">
+
 Conclusion :
-Bien que Microsoft Hyper-V soit une solution robuste pour les entreprises déjà "Full Microsoft", Proxmox VE surpasse son concurrent sur les critères de coût, de simplicité et d'outillage de migration, répondant parfaitement à la problématique de remplacement de VMware.
+Bien que Microsoft Hyper-V soit une solution assez viable pour les entreprises déjà "Full Microsoft", Proxmox VE surpasse son concurrent sur les critères de coût, de simplicité et d'outillage de migration, répondant parfaitement à la problématique de remplacement de VMware.
 
 ---
 
@@ -35,16 +37,19 @@ Bien que Microsoft Hyper-V soit une solution robuste pour les entreprises déjà
 
 ## 1. Présentation de l'Architecture
 
-Ce document décrit les spécifications techniques de l'infrastructure de virtualisation mise en place. L'architecture repose sur le principe de **Virtualisation Imbriquée (Nested)** pour simuler un cluster de production à trois nœuds sur un serveur physique unique.
+Cette partie décrit la techniques de l'infrastructure de virtualisation mise en place. L'architecture repose sur le principe de **Virtualisation Imbriquée (Nested)** pour simuler un cluster de production à trois nœuds sur un serveur physique unique.
 
 ### 1.1 Matériel Physique (Niveau 0)
-L'hôte physique est un serveur Dell PowerEdge R640.
+
+L'hôte physique est un serveur Dell PowerEdge R640 :
+
 * **CPU :** AMD EPYC (Instructions SVM activées).
 * **RAM :** Dimensionnée pour supporter 3 hyperviseurs virtuels.
 * **Stockage :** 2x SSD 1.7 To configurés en **RAID 1 Matériel** (Contrôleur PERC H730P).
 * **Réseau :** Interface `eno1` (1 Gbps) connectée au switch de salle.
 
 ### 1.2 Architecture Logique (Niveau 1)
+
 Le cluster Proxmox (`SAE-Cluster`) est composé de trois nœuds virtuels interconnectés via le protocole Corosync.
 
 | Nœud | Hostname | IP Management | Rôle |
@@ -64,8 +69,6 @@ Pour permettre l'exécution de machines virtuelles (KVM) à l'intérieur des nœ
 Le réseau repose sur un pont Linux standard (`vmbr0`) sans VLAN tagué au niveau de l'hôte, la segmentation étant gérée en amont.
 
 **Configuration réseau type (`/etc/network/interfaces`) :**
-
-Bash
 
 ```
 auto lo
@@ -533,8 +536,6 @@ apk add bind
 
 J'ai configuré Bind pour qu'il soit "Maître" de la zone sae.lan. J'ai édité le fichier de configuration pour déclarer cette nouvelle zone :
 
-Bash
-
 ```
 zone "sae.lan" {
     type master;
@@ -551,8 +552,6 @@ C'est l'étape la plus technique. J'ai créé le fichier de base de données DNS
 - **A (Address) :** Fait le lien IP ↔ Nom.
 
 Voici la configuration exacte que j'ai injectée :
-
-Bash
 
 ```
 $TTL 604800
@@ -581,8 +580,6 @@ Une fois configuré, j'ai activé le service au démarrage : `rc-update add name
 Pour le serveur Web, j'ai opté pour **Nginx** plutôt qu'Apache. Nginx est réputé pour sa capacité à gérer beaucoup de connexions simultanées avec très peu de mémoire, ce qui s'aligne avec notre philosophie "Alpine".
 
 **1. Installation :**
-
-Bash
 
 ```
 apk add nginx
