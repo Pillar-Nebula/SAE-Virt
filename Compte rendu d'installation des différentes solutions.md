@@ -24,7 +24,7 @@ L'installation de Proxmox est "clé en main" (Cluster + Ceph + Réseau opératio
 Proxmox inclut nativement le Stockage Distribué (Ceph) et le Backup (PBS). Hyper-V nécessite des rôles additionnels ou des logiciels tiers payants.
 ### Visualisation Stratégique
 
-![[Pasted image 20251219200028.png|300]]
+![[images/Pasted image 20251219200028.png|300]]
 Conclusion :
 Bien que Microsoft Hyper-V soit une solution robuste pour les entreprises déjà "Full Microsoft", Proxmox VE surpasse son concurrent sur les critères de coût, de simplicité et d'outillage de migration, répondant parfaitement à la problématique de remplacement de VMware.
 
