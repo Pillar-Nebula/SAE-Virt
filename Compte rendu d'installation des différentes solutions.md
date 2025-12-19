@@ -110,8 +110,7 @@ Utilisé pour la Haute Disponibilité (VMs Web & DNS).
 - **Volume :** Chaque nœud contribue avec un vDisk de 100 Go (`/dev/sdb`).
 
 **État du Cluster :**
-![[Pasted image 20251219213433.png]]
-
+![Capture d'écran](images/Pasted%20image%2020251219213433.png)
 #### 3.1.1 Fonctionnement de l'algorithme CRUSH
 
 Contrairement à un RAID classique qui utilise une table d'allocation centralisée (goulot d'étranglement), Ceph utilise l'algorithme **CRUSH** (Controlled Replication Under Scalable Hashing).
