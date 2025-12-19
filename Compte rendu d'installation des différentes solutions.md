@@ -214,6 +214,7 @@ Une fois Windows Server installé, j'ai configuré les **vSwitchs** :
 
 ![Page de connexion iDRAC du Serveur 7](images/8.png)
 ![Page de connexion iDRAC du Serveur 7](images/9.png)
+
 ### 2. Mise en place de la Haute Disponibilité sur Proxmox (Alexandre)
 
 Pendant ce temps, sur le serveur Proxmox, j'ai finalisé la configuration du cluster pour la **Haute Disponibilité (HA)**.
@@ -318,7 +319,20 @@ On voit donc que, après avoir shutdown le noeud, que le cluster détecte automa
 
 ![Page de connexion iDRAC du Serveur 7](images/image12.png)
 
-- **Migration à chaud :** Activation du "MAC Address Spoofing" pour permettre le déplacement des VMs sans coupure réseau.
+
+Après avoir attendu, on voit que la VM a redemmaré sur le noeud 1 (SRV1) : 
+
+![Page de connexion iDRAC du Serveur 7](images/image13.png)
+
+On voit que le test est réussi et que notre cluster est fonctionnel !
+
+
+- **Migration à chaud :** On active le "MAC Address Spoofing" pour permettre le déplacement des VMs sans coupure réseau, puis, pour réaliser ce test, rienn de plus simple. On prend notre VM, et on appuie sur move -> live migration -> best possible node. Avant cela, on lance notre VM avec un ping infini vers google. Puis, on lance la migration dynamique. On voit qu'un ping est à 12ms (au lieu de 6 ou 5 pour tout les autres) quand on clique sur la migration, mais ils reprennent de manière normale juste après, sans coupure : 
+
+![Page de connexion iDRAC du Serveur 7](images/image14.png)
+![Page de connexion iDRAC du Serveur 7](images/image15.png)
+
+Et voila, notre migration dynamique est fonctionnelle ! 
     
 
 ---
