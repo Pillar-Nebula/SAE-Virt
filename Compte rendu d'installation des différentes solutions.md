@@ -465,11 +465,35 @@ Pour travailler à distance pendant mon week-end, j'ai installé le logiciel **T
     
     Pour faire ce test, nous regardons d'abord sur quel nœud se trouve notre VM. 
 ![Test de résilience](images/Pasted%20image%2020251219205153.png)
+
+
+
+
 	Étant sur le nœud 2, nous l'éteignons pour voir comment réagit l'installation.
+
+
+
+
+
 ![Capture d'écran](images/Pasted%20image%2020251219205212.png)
 
+
+
+
+
+
 Résultat : Le cluster détecte automatiquement que le nœud est tombé. Après quelques secondes, la VM a redémarré sur le nœud 1 (SRV1).
+
+
+
+
+
 ![Capture d'écran](images/Pasted%20image%2020251219205231.png)
+
+
+
+
+
 
 -**Migration à chaud :** On active le "MAC Address Spoofing" pour permettre le déplacement des VMs sans coupure réseau, puis, pour réaliser ce test, rienn de plus simple. On prend notre VM, et on appuie sur move -> live migration -> best possible node. Avant cela, on lance notre VM avec un ping infini vers google. Puis, on lance la migration dynamique. On voit qu'un ping est à 12ms (au lieu de 6 ou 5 pour tout les autres) quand on clique sur la migration, mais ils reprennent de manière normale juste après, sans coupure :
 ![Capture d'écran](images/Pasted%20image%2020251219205246.png)
