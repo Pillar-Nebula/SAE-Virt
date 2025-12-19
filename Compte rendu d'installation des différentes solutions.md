@@ -20,7 +20,7 @@ Point critique : Proxmox depuis quelques versions intègre un assistant d'import
 3.  Rapidité de Mise en Œuvre
 L'installation de Proxmox est "clé en main" (Cluster + Ceph + Réseau opérationnels en 4h). Hyper-V (S2D) s'est avéré lourd, nécessitant une configuration complexe (AD, DNS, PowerShell).
 
-3.  Solution "Tout-en-un"
+4.  Solution "Tout-en-un"
 Proxmox inclut nativement le Stockage Distribué (Ceph) et le Backup (PBS). Hyper-V nécessite des rôles additionnels ou des logiciels tiers payants.
 ### Visualisation Stratégique
 
