@@ -40,6 +40,7 @@ Pour garantir le bon fonctionnement du futur S2D, il était important de présen
 
 ## 3. Configuration de l'Hyperviseur Hôte
 
+
 ### 3.1 Système d'Exploitation et Licences
 
 Le choix s'est porté sur Windows Server édition Datacenter.
