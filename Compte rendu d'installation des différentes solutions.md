@@ -444,6 +444,8 @@ Schéma réseau :
 
 J'ai profité de cette demi-journée pour préparer le terrain pour le **Cluster S2D (Storage Spaces Direct)** : validation des prérequis réseaux, documentation des IPs et de mon schéma réseau : 
 
+![Schéma réseau](images/imagex.png)
+
 ---
 
 ## Jour 4.5 (Romain/Week-end) : Cluster S2D à distance
