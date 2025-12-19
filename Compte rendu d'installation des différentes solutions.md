@@ -304,8 +304,20 @@ Pour travailler à distance, pendant mon week-end, j'ai discuté avec le groupe 
 | **Slack Space**        | 50 Go            | Espace non alloué laissé volontairement pour l'autoréparation (sur chaque nœud). |
 
     
-- **Test de résilience :** Simulation d'une panne (extinction SRV1) -> La VM a bien redémarré sur SRV2.
-    
+- **Test de résilience :** 
+
+Pour faire ce test, nous regardons d'abord sur quel noeud se trouve notre VM :
+
+![Page de connexion iDRAC du Serveur 7](images/image10.png)
+
+Etant sur le noeud 2, nous le shut down pour voir comment va réagir notre installation : 
+
+![Page de connexion iDRAC du Serveur 7](images/image11.png)
+
+On voit donc que, après avoir shutdown le noeud, que le cluster détecte automatiquement et rapidement que le noeud est tombé :
+
+![Page de connexion iDRAC du Serveur 7](images/image12.png)
+
 - **Migration à chaud :** Activation du "MAC Address Spoofing" pour permettre le déplacement des VMs sans coupure réseau.
     
 
