@@ -390,14 +390,11 @@ Une configuration rapide, pour une petite VM, est très suffisante pour le cadre
 La mise en place de la haute disponibilité était un succès, comme nous pouvons le remarquer sur ces deux captures d'écran,
 
 
+![Capture d'écran](images/Pasted%20image%2020251219230452.png)
 
-![[Pasted image 20251219230452.png]]
+La Vm 101 est donc répliquée dans le node 2
 
-
-La Vm  101 est donc répliquée dans le node 2 
-
-
-![[Pasted image 20251219230541.png]]
+![Capture d'écran](images/Pasted%20image%2020251219230541.png)
 
 
 
